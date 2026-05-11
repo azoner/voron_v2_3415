@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Voron hex">
+  <polygon points="32,3 58,17 58,47 32,61 6,47 6,17" fill="#D9351F"/>
+  <polygon points="32,12 50,22 50,42 32,52 14,42 14,22" fill="#0F0F12"/>
+  <polygon points="32,21 41,26 41,38 32,43 23,38 23,26" fill="#2351CC"/>
+</svg>

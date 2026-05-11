@@ -1,0 +1,52 @@
+{{- /*
+    Custom footer for Voron V2 #3415.
+    Replaces Hextra's default footer body. Three columns:
+      1. Printer identity (hex logo + serial + build vol)
+      2. References (Voron / Klipper / Mainsail / OrcaSlicer)
+      3. Build info (last generated, framework versions)
+    Site copyright row (controlled by params.footer.displayCopyright) renders
+    below this partial untouched.
+*/ -}}
+{{- $ctx := .context -}}
+<div class="voron-footer">
+
+  <div class="voron-footer-col voron-footer-identity">
+    <a href="{{ "/" | relURL }}" class="voron-footer-logo" aria-label="Home">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <polygon points="32,3 58,17 58,47 32,61 6,47 6,17" fill="#D9351F"/>
+        <polygon points="32,12 50,22 50,42 32,52 14,42 14,22" fill="#0F0F12"/>
+        <polygon points="32,21 41,26 41,38 32,43 23,38 23,26" fill="#2351CC"/>
+      </svg>
+    </a>
+    <div>
+      <div class="voron-footer-title">Voron V2 #3415</div>
+      <div class="voron-footer-sub">V2.4 · 300 × 300 × 300 mm</div>
+      <div class="voron-footer-sub voron-footer-status">
+        <span class="voron-dot"></span> Klipper host: TBD
+      </div>
+    </div>
+  </div>
+
+  <div class="voron-footer-col">
+    <div class="voron-footer-h">References</div>
+    <ul class="voron-footer-list">
+      <li><a href="https://docs.vorondesign.com/" target="_blank" rel="noopener">Voron documentation</a></li>
+      <li><a href="https://www.klipper3d.org/" target="_blank" rel="noopener">Klipper documentation</a></li>
+      <li><a href="https://docs.mainsail.xyz/" target="_blank" rel="noopener">Mainsail</a></li>
+      <li><a href="https://github.com/VoronDesign/Voron-2" target="_blank" rel="noopener">Voron-2 repository</a></li>
+    </ul>
+  </div>
+
+  <div class="voron-footer-col">
+    <div class="voron-footer-h">Build</div>
+    <dl class="voron-footer-meta">
+      <dt>Generated</dt>
+      <dd>{{ now.Format "2006-01-02 15:04 MST" }}</dd>
+      <dt>Hugo</dt>
+      <dd>{{ hugo.Version }}{{ if hugo.IsExtended }} · extended{{ end }}</dd>
+      <dt>Theme</dt>
+      <dd>Hextra</dd>
+    </dl>
+  </div>
+
+</div>

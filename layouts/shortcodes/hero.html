@@ -1,0 +1,31 @@
+{{- /*
+    hero: render a wide hero image, or — if the file doesn't exist yet — a
+    hex-patterned placeholder block carrying the same dimensions and brand
+    colors so the layout doesn't shift when the photo is added later.
+
+    Usage:
+        {{< hero src="images/printer-hero.jpg" alt="My printer" >}}
+
+    Drop the image at static/images/printer-hero.jpg and rebuild — the
+    placeholder swaps for the real photo automatically.
+*/ -}}
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" | default "Voron V2 #3415" -}}
+{{- $static := printf "static/%s" $src -}}
+{{- $exists := fileExists $static -}}
+<div class="hero{{ if not $exists }} hero-placeholder hex-bg{{ end }}">
+  {{- if $exists -}}
+    <img src="{{ $src | relURL }}" alt="{{ $alt }}" loading="lazy" />
+  {{- else -}}
+    <div class="hero-placeholder-inner">
+      <svg class="hero-hex" viewBox="0 0 64 64" aria-hidden="true">
+        <polygon points="32,3 58,17 58,47 32,61 6,47 6,17" fill="#D9351F"/>
+        <polygon points="32,12 50,22 50,42 32,52 14,42 14,22" fill="#0F0F12"/>
+        <polygon points="32,21 41,26 41,38 32,43 23,38 23,26" fill="#2351CC"/>
+      </svg>
+      <p class="hero-placeholder-text">
+        Drop a hero photo at <code>{{ $static }}</code> and rebuild.
+      </p>
+    </div>
+  {{- end -}}
+</div>

@@ -1,0 +1,31 @@
+{{- /*
+    serial-plate: 3D-printed Voron serial plate, web edition.
+    Long stadium-shaped tag with an embossed Voron hex, two mounting
+    holes, and a single line of embossed text (e.g. "V2.3415").
+
+    Usage (all params optional):
+        {{< serial-plate prefix="V2." serial="3415" >}}
+*/ -}}
+{{- $prefix := .Get "prefix" | default "V2." -}}
+{{- $serial := .Get "serial" | default "3415" -}}
+
+<div class="serial-plate" role="img" aria-label="Voron V2 serial plate {{ $prefix }}{{ $serial }}">
+  <div class="plate-body">
+
+    <div class="plate-hex" aria-hidden="true">
+      <svg viewBox="0 0 64 64">
+        <polygon points="32,4 57,18 57,46 32,60 7,46 7,18"
+                 fill="none" stroke="currentColor" stroke-width="3"/>
+        <polygon points="32,21 41,26 41,38 32,43 23,38 23,26"
+                 fill="currentColor"/>
+      </svg>
+    </div>
+
+    <span class="plate-hole" aria-hidden="true"></span>
+
+    <span class="plate-text">{{ $prefix }}{{ $serial }}</span>
+
+    <span class="plate-hole plate-hole-right" aria-hidden="true"></span>
+
+  </div>
+</div>

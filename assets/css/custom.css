@@ -1,0 +1,513 @@
+/* =====================================================================
+   Voron V2 #3415 — site palette
+   ---------------------------------------------------------------------
+   Color values are derived from photos of the actual printer:
+
+     - Frame extrusions, dominant printed parts, Klicky dock, fan shroud
+       → vibrant red-orange (~#D9351F)        → PRIMARY accent
+     - Corner brackets, Z motor mounts, A/B drive blocks, Z couplers
+       → royal blue (~#2351CC)                → SECONDARY accent
+     - Chamber interior, panels, build plate surface
+       → near-black (~#0F0F12)                → background (dark mode)
+     - Aluminum X carriage, machined hardware
+       → cool gray (~#B8BABF)                 → divider/border tone
+
+   This file is the only place colors live. Edit and reload.
+   Hextra reference: https://imfing.github.io/hextra/docs/guide/customization/
+   ===================================================================== */
+
+/* ---- Primary accent: Voron-red (HSL components feed Hextra's primary-50..900) ---- */
+:root {
+  --primary-hue:        8deg;
+  --primary-saturation: 78%;
+  --primary-lightness:  48%;
+}
+
+/* ---- Secondary accent + brand swatches (referenced by custom rules below) ---- */
+:root {
+  --voron-red:    #D9351F;   /* extrusions / printed parts */
+  --voron-blue:   #2351CC;   /* corner brackets / drive blocks */
+  --voron-metal:  #B8BABF;   /* aluminum X carriage */
+  --voron-brass:  #C9A24A;   /* Klicky probe pin */
+}
+
+/* ---- Light mode (toggle off dark) ---- */
+:root:not(.dark) {
+  --hextra-bg-light:  #FAFAF9;
+  --hextra-fg-light:  #1C1B1F;
+}
+
+/* ---- Dark mode (default in hugo.yaml) ---- */
+.dark {
+  --hextra-bg:  #0F0F12;
+  --hextra-fg:  #F2F2F2;
+}
+
+/* =====================================================================
+   Printer-themed accents
+   ===================================================================== */
+
+/* Hextra renders a thin border under the navbar — paint it Voron-red so the
+   site visually echoes the red top extrusion of the printer. */
+.hextra-nav-container {
+  border-bottom: 2px solid var(--voron-red) !important;
+}
+
+/* A small uppercase tag class for use in hero / landing content. */
+.hero-tag {
+  color: var(--voron-blue);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+/* Table headers — pick up the blue accent so spec/BOM tables feel printer-themed
+   without overwhelming the page. */
+.dark .content table thead th {
+  border-bottom: 2px solid var(--voron-blue);
+}
+.content table thead th {
+  border-bottom: 2px solid var(--voron-blue);
+}
+
+/* Blockquote left rail in red — minimal but on-brand. */
+.dark .content blockquote,
+.content blockquote {
+  border-left-color: var(--voron-red) !important;
+}
+
+/* Card hover: lift toward the red accent so the section cards feel
+   interactive in the same color family as the printer. */
+.hx-card:hover,
+.hextra-card:hover {
+  border-color: var(--voron-red) !important;
+}
+
+/* Selection highlight uses the secondary blue — matches the bed-print
+   visible in the printer photos. */
+::selection {
+  background: var(--voron-blue);
+  color: #fff;
+}
+
+/* =====================================================================
+   Hex pattern accent — echoes the Voron hex logo / honeycomb intake grilles
+   visible on the printer (photo 1: bottom intake panels). Used as a subtle
+   background on the landing hero only, so it doesn't fight content density
+   on doc pages.
+   ===================================================================== */
+.hex-bg {
+  background-color: transparent;
+  background-image:
+    /* Two offset hex SVGs as a tiled pattern */
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='32' viewBox='0 0 28 32'><polygon points='14,1 27,8.5 27,23.5 14,31 1,23.5 1,8.5' fill='none' stroke='%23D9351F' stroke-opacity='0.10' stroke-width='1'/></svg>");
+  background-repeat: repeat;
+}
+
+/* =====================================================================
+   Hero block — used on the landing page above the stats.
+   Real photo: aspect-ratio frame, rounded corners, soft red glow.
+   Placeholder: hex-pattern background + centered Voron hex logo + prompt.
+   ===================================================================== */
+.hero {
+  margin: 1.5rem 0 2rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(217, 53, 31, 0.35);
+  box-shadow: 0 0 0 1px rgba(217, 53, 31, 0.10), 0 10px 40px -20px rgba(217, 53, 31, 0.45);
+}
+.hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.hero-placeholder {
+  background-color: #0F0F12;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-placeholder-inner {
+  text-align: center;
+  padding: 1rem;
+}
+.hero-hex {
+  width: 72px;
+  height: 72px;
+  filter: drop-shadow(0 4px 18px rgba(217, 53, 31, 0.4));
+}
+.hero-placeholder-text {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #B8BABF;
+}
+.hero-placeholder-text code {
+  background: rgba(35, 81, 204, 0.18);
+  border: 1px solid rgba(35, 81, 204, 0.4);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  color: #F2F2F2;
+  font-size: 0.9em;
+}
+
+/* =====================================================================
+   Milestone card — echoes the embossed "300 hrs / 500 hrs" panel on the
+   printer (photo 4). Black surface, red border, large numeric figure.
+   ===================================================================== */
+.milestone-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.milestone {
+  background: #0F0F12;
+  border: 1.5px solid var(--voron-red);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.milestone::before {
+  /* small blue corner accent — like the blue brackets at the corners of the printer */
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 14px; height: 14px;
+  background: var(--voron-blue);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+.milestone .value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #F2F2F2;
+  line-height: 1;
+}
+.milestone .unit {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--voron-red);
+}
+.milestone .label {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #B8BABF;
+}
+
+/* =====================================================================
+   Serial plate — 3D-printed Voron tag, web edition.
+   Long stadium-shaped tag, dark plastic, embossed hex + serial text,
+   two mounting holes. Models the CAD render the user shared.
+   ===================================================================== */
+.serial-plate {
+  --plate-fg:        #6a6c72;   /* plastic body mid-tone */
+  --plate-fg-light:  #8c8e94;   /* top highlight */
+  --plate-fg-dark:   #4a4c52;   /* bottom shadow */
+  --plate-emboss:    #4a4c52;   /* color of embossed features */
+  --plate-emboss-hi: rgba(255,255,255,0.30);
+  --plate-emboss-lo: rgba(0,0,0,0.55);
+
+  margin: 1.75rem auto;
+  max-width: 460px;
+  display: flex;
+  justify-content: center;
+  perspective: 800px;
+  filter: drop-shadow(0 14px 14px rgba(0,0,0,0.35));
+}
+
+.plate-body {
+  /* Resting tilt — JS overrides these on mousemove. */
+  --tilt-x: 6deg;
+  --tilt-y: 0deg;
+  --tilt-scale: 1;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 0.8rem 1.6rem;
+  /* Stadium shape: very large radius forces fully-rounded ends. */
+  border-radius: 9999px;
+  color: var(--plate-emboss);
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--plate-fg-light) 0%,
+      var(--plate-fg)       45%,
+      var(--plate-fg)       60%,
+      var(--plate-fg-dark)  100%
+    );
+
+  /* Thin top highlight + bottom shadow give it physical thickness. */
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.35),
+    inset 0 -1px 0 rgba(0,0,0,0.45),
+    inset 1px 0 0 rgba(255,255,255,0.10),
+    inset -1px 0 0 rgba(0,0,0,0.18);
+
+  transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(var(--tilt-scale));
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 280ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* On hover (no JS, or while JS hasn't kicked in yet): bump scale + tilt. */
+.serial-plate:hover .plate-body {
+  --tilt-scale: 1.04;
+}
+
+/* A moving specular highlight that follows the cursor.
+   JS sets --mx / --my as 0..1 normalized coords; CSS turns that into a soft
+   white blob sliding across the plate, catching the light like real plastic. */
+.plate-body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    180px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.3) * 100%),
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0) 60%
+  );
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.serial-plate:hover .plate-body::after {
+  opacity: 1;
+}
+
+/* Reduced-motion: keep the plate still, drop the hover scale and shine. */
+@media (prefers-reduced-motion: reduce) {
+  .plate-body { transition: none; }
+  .serial-plate:hover .plate-body { --tilt-scale: 1; }
+  .serial-plate:hover .plate-body::after { opacity: 0; }
+}
+
+/* Voron hex — embossed outline, raised from the surface. */
+.plate-hex {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  color: var(--plate-emboss);
+  filter:
+    drop-shadow(0 1px 0 var(--plate-emboss-hi))
+    drop-shadow(0 -1px 0 var(--plate-emboss-lo));
+}
+.plate-hex svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Mounting holes — small dark recessed circles. */
+.plate-hole {
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 60%,
+    #1c1d20 0%,
+    #2a2b2f 70%,
+    #45474c 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(0,0,0,0.7),
+    0 1px 0 rgba(255,255,255,0.25);
+}
+.plate-hole-right {
+  margin-left: auto;
+}
+
+/* The big embossed serial text — raised letterforms. */
+.plate-text {
+  flex: 1 1 auto;
+  text-align: left;
+  font-family: "Helvetica Neue", "Arial Narrow Bold", "Inter", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1.7rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--plate-emboss);
+  /* Raised emboss: light at top, dark below the letterforms. */
+  text-shadow:
+    0 1px 0 var(--plate-emboss-hi),
+    0 -1px 0 var(--plate-emboss-lo),
+    0 0 1px rgba(0,0,0,0.25);
+}
+
+/* Light mode — slightly lighter plastic so it still reads against pale bg. */
+:root:not(.dark) .serial-plate {
+  --plate-fg:        #7e8087;
+  --plate-fg-light:  #9da0a6;
+  --plate-fg-dark:   #5a5c62;
+  --plate-emboss:    #404248;
+}
+
+/* =====================================================================
+   Footer — echoes the printer's bottom panel: red structural extrusion
+   bar, dark surface, honeycomb intake pattern, blue corner accent.
+   ===================================================================== */
+
+/* Skin the Hextra footer container itself. */
+.hextra-footer {
+  background-color: #0B0B0E !important;
+  border-top: 3px solid var(--voron-red);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Honeycomb intake pattern — echoes the bottom panel grilles (photo 1). */
+.hextra-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='32' viewBox='0 0 28 32'><polygon points='14,1 27,8.5 27,23.5 14,31 1,23.5 1,8.5' fill='none' stroke='%23D9351F' stroke-opacity='0.07' stroke-width='1'/></svg>");
+  background-repeat: repeat;
+  z-index: 0;
+}
+
+/* Custom footer body content sits above the pattern. */
+.voron-footer {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  padding: 2.5rem 0 1.5rem;
+  color: #B8BABF;
+}
+
+.voron-footer-col {
+  min-width: 0;
+}
+
+.voron-footer-identity {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+.voron-footer-logo {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 4px;
+  border: 1px solid rgba(217, 53, 31, 0.35);
+  border-radius: 6px;
+  background: #0F0F12;
+  position: relative;
+}
+.voron-footer-logo::after {
+  /* tiny blue corner triangle matching the milestone-card accent */
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 10px; height: 10px;
+  background: var(--voron-blue);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  border-top-left-radius: 5px;
+}
+.voron-footer-logo svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.voron-footer-title {
+  color: #F2F2F2;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  font-size: 1rem;
+}
+.voron-footer-sub {
+  font-size: 0.82rem;
+  color: #8C8E94;
+  margin-top: 0.15rem;
+}
+.voron-footer-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 0.4rem;
+}
+.voron-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--voron-blue);
+  box-shadow: 0 0 8px var(--voron-blue);
+}
+
+.voron-footer-h {
+  color: var(--voron-red);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.voron-footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.voron-footer-list li {
+  margin: 0.3rem 0;
+}
+.voron-footer-list a {
+  color: #C8C9CD;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s, color 0.15s;
+}
+.voron-footer-list a:hover {
+  color: #F2F2F2;
+  border-bottom-color: var(--voron-red);
+}
+
+.voron-footer-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.85rem;
+  margin: 0;
+  font-size: 0.82rem;
+}
+.voron-footer-meta dt {
+  color: #8C8E94;
+  font-weight: 600;
+}
+.voron-footer-meta dd {
+  margin: 0;
+  color: #D6D7DB;
+  font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
+  font-size: 0.78rem;
+}
+
+/* Constrain copyright-row color so it stays readable on the dark footer. */
+.hextra-footer .hextra-max-footer-width {
+  position: relative;
+  z-index: 1;
+}
+.hextra-footer .hextra-max-footer-width:last-child {
+  color: #8C8E94 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}

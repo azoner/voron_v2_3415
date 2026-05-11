@@ -1,0 +1,20 @@
+# Hugo build artifacts
+public/
+resources/_gen/
+.hugo_build.lock
+
+# Hugo module cache (local override; modules are fetched fresh on CI)
+/_vendor/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Node tooling (in case any is added later)
+node_modules/
+
+# Claude Code per-project session state
+.claude/

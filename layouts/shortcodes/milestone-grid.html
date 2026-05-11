@@ -1,0 +1,13 @@
+{{- /*
+    milestone-grid: wraps multiple milestone shortcodes in a responsive grid.
+
+    Usage:
+        {{< milestone-grid >}}
+          {{< milestone value="312" unit="hours" label="Total print time" >}}
+          {{< milestone value="42"  unit="prints" label="Completed jobs"   >}}
+          {{< milestone value="2.4" unit="kg"    label="Filament used"    >}}
+        {{< /milestone-grid >}}
+*/ -}}
+<div class="milestone-grid">
+{{ .Inner | safeHTML }}
+</div>

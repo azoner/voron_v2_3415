@@ -1,0 +1,16 @@
+{{- /*
+    milestone: render a printer-themed milestone card.
+
+    Usage:
+        {{< milestone value="312" unit="hours" label="Total print time" >}}
+        {{< milestone value="42" unit="prints" label="Completed jobs" >}}
+        {{< milestone value="2.4" unit="kg" label="Filament used" >}}
+*/ -}}
+{{- $value := .Get "value" -}}
+{{- $unit := .Get "unit" -}}
+{{- $label := .Get "label" -}}
+<div class="milestone">
+  <span class="value">{{ $value }}</span>
+  <span class="unit">{{ $unit }}</span>
+  {{- if $label }}<span class="label">{{ $label }}</span>{{ end -}}
+</div>

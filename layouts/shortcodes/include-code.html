@@ -1,0 +1,19 @@
+{{- /*
+    include-code: render a file from the project as a fenced code block.
+
+    Usage:
+        {{< include-code file="content/config/files/printer.cfg" lang="ini" >}}
+
+    `file` is resolved from the project root.
+    `lang` defaults to "" (no syntax highlighting).
+*/ -}}
+{{- $file := .Get "file" -}}
+{{- $lang := .Get "lang" | default "" -}}
+{{- if $file -}}
+{{- $content := readFile $file -}}
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0">
+{{- highlight (trim $content "\n") $lang "" -}}
+</div>
+{{- else -}}
+{{ errorf "include-code: missing required 'file' parameter" }}
+{{- end -}}
